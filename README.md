@@ -1,24 +1,34 @@
 ## Install React using Vite -
 
+---
+
 npm create vite@latest
 npm i
 
 ## Install React Router Dom -
+
+---
 
 npm install react-router-dom
 npm install --save-dev @types/react-router-dom
 
 ## Install Styled Components -
 
+---
+
 npm install styled-components
 npm install --save-dev @types/styled-components
 
 ## Install Redux Toolkit -
 
+---
+
 npm install @reduxjs/toolkit react-redux
 npm install --save-dev @types/react-redux
 
 ## Install React Hook Form -
+
+---
 
 npm install react-hook-form
 npm install zod
@@ -26,79 +36,95 @@ npm install @hookform/resolvers
 
 ## Install Swiper -
 
+---
+
 npm install swiper
 npm install --save-dev @types/swiper
 
 ## Install React Datepicker -
+
+---
 
 npm install react-datepicker
 npm install --save-dev @types/react-datepicker
 
 ## Install Zustand
 
+---
+
 npm install zustand
+
+## Install Tanstack Query
+
+---
+
+npm install @tanstack/react-query
 
 ## Install Shadcn -
 
-npm install tailwindcss @tailwindcss/vite
+---
 
-create global.css in src/shared/styles/ and add below code.
-@import "tailwindcss";
+1. npm install tailwindcss @tailwindcss/vite
 
-tsconfig.json
+2. create global.css in src/shared/styles/ and add below code.
+   @import "tailwindcss";
+
+3.tsconfig.json
 "compilerOptions": {
 "paths": {
-"@/*": ["./src/*"]
+"@/_": ["./src/_"]
 }
 }
 
-tsconfig.app.json
-"paths": {
-"@/*": ["./src/*"]
-},
+4. tsconfig.app.json
+   "paths": {
+   "@/_": ["./src/_"]
+   },
 
-vite.config.ts
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
-import path from "path";
-import { fileURLToPath } from "url";
+5. vite.config.ts
+   import { defineConfig } from "vite";
+   import react from "@vitejs/plugin-react";
+   import tailwindcss from "@tailwindcss/vite";
+   import path from "path";
+   import { fileURLToPath } from "url";
 
-const _dirname = path.dirname(fileURLToPath(import.meta.url));
+const \_dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
 plugins: [react(), tailwindcss()],
 resolve: {
 alias: {
-"@": path.resolve(_dirname, "./src"),
+"@": path.resolve(\_dirname, "./src"),
 },
 },
 });
 
-npx shadcn@latest init
+6. npx shadcn@latest init
+   Choose options like this from the list provided by shadcn:
+   Radix
+   Nova
 
-Choose options like this from the list provided by shadcn:
-Radix
-Nova
+7. after this shadcn will install folder like this:
+   src/components/ui
+   src/lib/utils.ts
 
-after this shadcn will install folder like this:
-src/components/ui
-src/lib/utils.ts
+8. delete src/components/ui
 
-delete src/components/ui
+9. move src/lib/utils.ts to src/shared/utils/utils.ts
 
-move src/lib/utils.ts to src/shared/utils/utils.ts
+10. then just replace below aliases in components.json file
+    "aliases": {
+    "components": "@/shared/components",
+    "utils": "@/shared/utils",
+    "ui": "@/shared/components/shadcn-ui",
+    "lib": "@/shared/utils",
+    "hooks": "@/hooks"
+    },
 
-then just replace below aliases in components.json file
-"aliases": {
-"components": "@/shared/components",
-"utils": "@/shared/utils",
-"ui": "@/shared/components/shadcn-ui",
-"lib": "@/shared/utils",
-"hooks": "@/hooks"
-},
+11. then add any component from shadcn like below:
+    npx shadcn@latest add button
 
-then add any component from shadcn like below:
-npx shadcn@latest add badge
+12. now it will correctly install in src/shared/components/shadcn-ui/button.tsx
 
-now it will correctly install in src/shared/components/shadcn-ui/badge.tsx
+13. In button.tsx change the import path to:
+    import { cn } from "@/shared/utils/utils";

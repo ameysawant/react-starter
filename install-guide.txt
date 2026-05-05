@@ -46,6 +46,11 @@ npm install --save-dev @types/react-datepicker
 npm install zustand
 
 
+## Install Tanstack Query
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+npm install @tanstack/react-query
+
+
 ## Install Shadcn -
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 1. npm install tailwindcss @tailwindcss/vite

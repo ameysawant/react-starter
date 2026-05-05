@@ -38,10 +38,9 @@ const directories = [
     `src/modules/${module}/utils`,
     `src/modules/${module}/schema`,
     `src/modules/${module}/layout`,
+    `src/modules/${module}/query-hooks`,
   ]),
 ];
-
-
 
 // Create Directories
 const createDirectories = () => {
@@ -162,7 +161,7 @@ const globalFiles = [
   {
     path: "src/main.tsx",
     overwrite: true,
-    content: `import { StrictMode } from "react";\nimport { createRoot } from "react-dom/client";\nimport "./shared/styles/global.css";\nimport App from "./App.tsx";\n\ncreateRoot(document.getElementById("root")!).render(\n  <StrictMode>\n    <App />\n  </StrictMode>,\n);\n`,
+    content: `import { StrictMode } from "react";\nimport { createRoot } from "react-dom/client";\nimport { QueryClient, QueryClientProvider } from "@tanstack/react-query";\nimport "./shared/styles/global.css";\nimport App from "./App.tsx";\n\nconst queryClient = new QueryClient();\n\ncreateRoot(document.getElementById("root")!).render(\n  <StrictMode>\n    <QueryClientProvider client={queryClient}>\n      <App />\n    </QueryClientProvider>\n  </StrictMode>,\n);\n`,
   },
 ];
 
@@ -254,6 +253,10 @@ const run = async () => {
       {
         path: `src/modules/${module}/schema/${module}.schema.ts`,
         content: `import { z } from "zod";\n\nexport const ${module}Schema = z.object({\n  id: z.string()\n});\n\nexport type ${modUpper}FormData = z.infer<typeof ${module}Schema>;\n`,
+      },
+      {
+        path: `src/modules/${module}/query-hooks/use${modUpper}Queries.ts`,
+        content: `import { useQuery } from "@tanstack/react-query";\n\nexport const use${modUpper}Queries = () => {\n  return {};\n};\n`,
       },
     ];
 
