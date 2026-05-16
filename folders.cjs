@@ -228,7 +228,7 @@ const run = async () => {
       },
       {
         path: `src/modules/${module}/hooks/use${modUpper}.ts`,
-        content: `export const use${modUpper} = () => {\n  return {};\n};\n`,
+        content: `export const use${modUpper} = () => ({});\n`,
       },
       {
         path: `src/modules/${module}/pages/${modUpper}Page.tsx`,
@@ -236,27 +236,27 @@ const run = async () => {
       },
       {
         path: `src/modules/${module}/services/${module}.service.ts`,
-        content: `export const ${module}Service = {\n  // Add service methods here\n};\n`,
+        content: `export const ${module}Service = {};\n`,
       },
       {
         path: `src/modules/${module}/stores/${module}.stores.ts`,
-        content: `import { create } from 'zustand';\n\ninterface ${modUpper}State {\n  // Define state types\n}\n\nexport const use${modUpper}Store = create<${modUpper}State>(() => ({\n  // Define initial state\n}));\n`,
+        content: `import { create } from "zustand";\n\nexport interface ${modUpper}State {\n  [key: string]: unknown;\n}\n\nexport const use${modUpper}Store = create<${modUpper}State>(() => ({}));\n`,
       },
       {
         path: `src/modules/${module}/types/${module}.types.ts`,
-        content: `export interface ${modUpper}Data {\n  id: string;\n}\n`,
+        content: `// eslint-disable-next-line @typescript-eslint/no-empty-object-type -- scaffold placeholder\nexport interface ${modUpper}Data {}\n`,
       },
       {
         path: `src/modules/${module}/utils/${module}.utils.ts`,
-        content: `export const ${module}Utils = {\n  formatData: <T>(data: T): T => data\n};\n`,
+        content: `export const ${module}Utils = {};\n`,
       },
       {
         path: `src/modules/${module}/schema/${module}.schema.ts`,
-        content: `import { z } from "zod";\n\nexport const ${module}Schema = z.object({\n  id: z.string()\n});\n\nexport type ${modUpper}FormData = z.infer<typeof ${module}Schema>;\n`,
+        content: `import { z } from "zod";\n\nexport const ${module}Schema = z.object({});\n`,
       },
       {
         path: `src/modules/${module}/query-hooks/use${modUpper}Queries.ts`,
-        content: `import { useQuery } from "@tanstack/react-query";\n\nexport const use${modUpper}Queries = () => {\n  return {};\n};\n`,
+        content: `export const use${modUpper}Queries = () => ({});\n`,
       },
     ];
 
