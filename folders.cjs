@@ -84,13 +84,13 @@ export const AppRoutes = [
 // Build routes.ts content dynamically
 const routesContent = `export const APP_ROUTES = {
   base: "/",
-  shop: "/shop",
+  ${firstModule}: "/${firstModule}",
 };
 
 ${modules
   .map((m) => {
     const mUpper = m.toUpperCase();
-    const basePath = m === "shop" ? "/" : `/${m}`;
+    const basePath = m === firstModule ? "/" : `/${m}`;
     return `export const ${mUpper}_ROUTES = {\n  base: "${basePath}",\n  ${m}: "/${m}",\n};`;
   })
   .join("\n\n")}
