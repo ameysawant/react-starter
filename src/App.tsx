@@ -6,7 +6,9 @@ const App = () => {
   return (
     <>
       <RouterProvider router={router} />
-      <Button>Click me</Button>
+      <div>
+        <Button>Click me</Button>
+      </div>
     </>
   );
 };
