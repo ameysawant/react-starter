@@ -1,5 +1,5 @@
-import AccountLayout from "../../shared/layouts/AccountLayout";
-import AccountPage from "../../modules/account/pages/AccountPage";
+import AccountLayout from "@/shared/layouts/AccountLayout";
+import AccountIndex from "@/modules/account/Index";
 
 export const accountRoutes = [
   {
@@ -8,7 +8,7 @@ export const accountRoutes = [
     children: [
       {
         index: true,
-        element: <AccountPage />,
+        element: <AccountIndex />,
       },
     ],
   },

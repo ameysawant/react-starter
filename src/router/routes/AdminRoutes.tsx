@@ -1,5 +1,5 @@
-import AdminLayout from "../../shared/layouts/AdminLayout";
-import AdminPage from "../../modules/admin/pages/AdminPage";
+import AdminLayout from "@/shared/layouts/AdminLayout";
+import AdminIndex from "@/modules/admin/Index";
 
 export const adminRoutes = [
   {
@@ -8,7 +8,7 @@ export const adminRoutes = [
     children: [
       {
         index: true,
-        element: <AdminPage />,
+        element: <AdminIndex />,
       },
     ],
   },

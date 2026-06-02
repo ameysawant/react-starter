@@ -1,5 +1,5 @@
 const AccountPage = () => {
-  return <div>Account Page</div>;
+  return <div>AccountPage</div>;
 };
 
 export default AccountPage;

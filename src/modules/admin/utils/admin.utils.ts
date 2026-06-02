@@ -1,3 +1,1 @@
-export const adminUtils = {
-  formatData: <T>(data: T): T => data
-};
+export const adminUtils = {};

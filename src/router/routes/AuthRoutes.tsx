@@ -1,5 +1,5 @@
-import AuthLayout from "../../shared/layouts/AuthLayout";
-import AuthPage from "../../modules/auth/pages/AuthPage";
+import AuthLayout from "@/shared/layouts/AuthLayout";
+import AuthIndex from "@/modules/auth/Index";
 
 export const authRoutes = [
   {
@@ -8,7 +8,7 @@ export const authRoutes = [
     children: [
       {
         index: true,
-        element: <AuthPage />,
+        element: <AuthIndex />,
       },
     ],
   },

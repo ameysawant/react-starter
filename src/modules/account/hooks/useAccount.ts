@@ -1,3 +1,1 @@
-export const useAccount = () => {
-  return {};
-};
+export const useAccount = () => ({});

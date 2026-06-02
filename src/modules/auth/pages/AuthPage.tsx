@@ -1,5 +1,5 @@
 const AuthPage = () => {
-  return <div>Auth Page</div>;
+  return <div>AuthPage</div>;
 };
 
 export default AuthPage;

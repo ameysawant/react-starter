@@ -1,9 +1,7 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
-interface AuthState {
-  // Define state types
+export interface AuthState {
+  [key: string]: unknown;
 }
 
-export const useAuthStore = create<AuthState>(() => ({
-  // Define initial state
-}));
+export const useAuthStore = create<AuthState>(() => ({}));

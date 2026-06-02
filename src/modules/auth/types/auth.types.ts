@@ -1,3 +1,2 @@
-export interface AuthData {
-  id: string;
-}
+
+export interface AuthData {hello: unknown}

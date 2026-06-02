@@ -60,34 +60,10 @@ const routerImports = modules
   .join("\n");
 const routerSpreads = modules.map((m) => `...${m}Routes`).join(",\n  ");
 
-// Build AppRoutes.tsx content based on the first module
 const firstModule = modules[0];
-const firstModUpper = capitalize(firstModule);
-const appRoutesContent = `import { APP_ROUTES } from "@/shared/constants/routes";
-import ${firstModUpper}Index from "@/modules/${firstModule}/Index";
-import ${firstModUpper}Layout from "@/shared/layouts/${firstModUpper}Layout";
-
-export const AppRoutes = [
-  {
-    path: APP_ROUTES.base,
-    element: <${firstModUpper}Layout />,
-    children: [
-      {
-        index: true,
-        element: <${firstModUpper}Index />,
-      },
-    ],
-  },
-];
-`;
 
 // Build routes.ts content dynamically
-const routesContent = `export const APP_ROUTES = {
-  base: "/",
-  ${firstModule}: "/${firstModule}",
-};
-
-${modules
+const routesContent = `${modules
   .map((m) => {
     const mUpper = m.toUpperCase();
     const basePath = m === firstModule ? "/" : `/${m}`;
@@ -109,12 +85,12 @@ const globalFiles = [
   },
   {
     path: "src/shared/types/api.types.ts",
-    content: "export interface ApiResponse<T> {\n  data: T;\n  message: string;\n  status: number;\n}\n",
+    content: "export interface ApiResponse<T> {\n  isSuccessful: boolean;\n  result: T;\n  exceptionMessage: string;\n  statusCode: number;\n}\n",
   },
   {
     path: "src/lib/api-helpers/api-helpers.ts",
     content:
-      'export const apiHelpers = {\n  handleError: (error: unknown) => {\n    console.error("API Error:", error);\n  },\n};\n',
+      'export const apiHelpers = {};',
   },
   {
     path: "src/shared/components/feedback/Loading.tsx",
@@ -139,6 +115,11 @@ const globalFiles = [
     content: 'export const ENDPOINTS = {\n  auth: {\n    login: "/auth/login",\n  },\n};\n',
   },
   {
+    path: "src/shared/utils/utils.ts",
+    content:
+      'import { clsx, type ClassValue } from "clsx"\nimport { twMerge } from "tailwind-merge"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n',
+  },
+  {
     path: "src/App.tsx",
     overwrite: true,
     content:
@@ -146,11 +127,7 @@ const globalFiles = [
   },
   {
     path: "src/router/routes/Router.tsx",
-    content: `import { createBrowserRouter } from "react-router";\nimport { AppRoutes } from "@/router/routes/AppRoutes";\n${routerImports}\nimport PageNotFound from "../../shared/components/feedback/PageNotFound";\n\nexport const router = createBrowserRouter([\n  ...AppRoutes,\n  ${routerSpreads},\n  { path: "*", element: <PageNotFound /> }\n]);\n`,
-  },
-  {
-    path: "src/router/routes/AppRoutes.tsx",
-    content: appRoutesContent,
+    content: `import { createBrowserRouter } from "react-router";\n${routerImports}\nimport PageNotFound from "@/shared/components/feedback/PageNotFound";\n\nexport const router = createBrowserRouter([\n  ${routerSpreads},\n  { path: "*", element: <PageNotFound /> }\n]);\n`,
   },
   {
     path: "src/shared/styles/global.css",
@@ -161,7 +138,7 @@ const globalFiles = [
   {
     path: "src/main.tsx",
     overwrite: true,
-    content: `import { StrictMode } from "react";\nimport { createRoot } from "react-dom/client";\nimport { QueryClient, QueryClientProvider } from "@tanstack/react-query";\nimport "./shared/styles/global.css";\nimport App from "./App.tsx";\n\nconst queryClient = new QueryClient();\n\ncreateRoot(document.getElementById("root")!).render(\n  <StrictMode>\n    <QueryClientProvider client={queryClient}>\n      <App />\n    </QueryClientProvider>\n  </StrictMode>,\n);\n`,
+    content: `import { StrictMode } from "react";\nimport { createRoot } from "react-dom/client";\nimport { QueryClient, QueryClientProvider } from "@tanstack/react-query";\nimport "@/shared/styles/global.css";\nimport App from "@/App.tsx";\n\nconst queryClient = new QueryClient();\n\ncreateRoot(document.getElementById("root")!).render(\n  <StrictMode>\n    <QueryClientProvider client={queryClient}>\n      <App />\n    </QueryClientProvider>\n  </StrictMode>,\n);\n`,
   },
 ];
 
@@ -204,15 +181,15 @@ const run = async () => {
     const files = [
       {
         path: `src/modules/${module}/Index.tsx`,
-        content: `const Index = () => {\n  return <div>${modUpper} Index</div>;\n};\n\nexport default Index;\n`,
+        content: `import ${modUpper}Page from "@/modules/${module}/pages/${modUpper}Page";\n\nconst Index = () => {\n  return <${modUpper}Page />;\n};\n\nexport default Index;\n`,
       },
       {
         path: `src/router/routes/${modUpper}Routes.tsx`,
-        content: `import ${modUpper}Layout from "../../shared/layouts/${modUpper}Layout";\nimport ${modUpper}Page from "../../modules/${module}/pages/${modUpper}Page";\n\nexport const ${module}Routes = [\n  {\n    path: "/${module}",\n    element: <${modUpper}Layout />,\n    children: [\n      {\n        index: true,\n        element: <${modUpper}Page />,\n      },\n    ],\n  },\n];\n`,
+        content: `import ${modUpper}Layout from "@/shared/layouts/${modUpper}Layout";\nimport ${modUpper}Index from "@/modules/${module}/Index";\n\nexport const ${module}Routes = [\n  {\n    path: "/${module}",\n    element: <${modUpper}Layout />,\n    children: [\n      {\n        index: true,\n        element: <${modUpper}Index />,\n      },\n    ],\n  },\n];\n`,
       },
       {
         path: `src/shared/layouts/${modUpper}Layout.tsx`,
-        content: `import { Outlet } from "react-router-dom";\nimport ${modUpper}Header from "../../modules/${module}/layout/${modUpper}Header";\nimport ${modUpper}Footer from "../../modules/${module}/layout/${modUpper}Footer";\n\nconst ${modUpper}Layout = () => {\n  return (\n    <div>\n      <${modUpper}Header />\n      <main>\n        <Outlet />\n      </main>\n      <${modUpper}Footer />\n    </div>\n  );\n};\n\nexport default ${modUpper}Layout;\n`,
+        content: `import { Outlet } from "react-router-dom";\nimport ${modUpper}Header from "@/modules/${module}/layout/${modUpper}Header";\nimport ${modUpper}Footer from "@/modules/${module}/layout/${modUpper}Footer";\n\nconst ${modUpper}Layout = () => {\n  return (\n    <div>\n      <${modUpper}Header />\n      <main>\n        <Outlet />\n      </main>\n      <${modUpper}Footer />\n    </div>\n  );\n};\n\nexport default ${modUpper}Layout;\n`,
       },
       {
         path: `src/modules/${module}/layout/${modUpper}Header.tsx`,
@@ -232,7 +209,7 @@ const run = async () => {
       },
       {
         path: `src/modules/${module}/pages/${modUpper}Page.tsx`,
-        content: `const ${modUpper}Page = () => {\n  return <div>${modUpper} Page</div>;\n};\n\nexport default ${modUpper}Page;\n`,
+        content: `const ${modUpper}Page = () => {\n  return <div>${modUpper}Page</div>;\n};\n\nexport default ${modUpper}Page;\n`,
       },
       {
         path: `src/modules/${module}/services/${module}.service.ts`,
@@ -244,7 +221,7 @@ const run = async () => {
       },
       {
         path: `src/modules/${module}/types/${module}.types.ts`,
-        content: `// eslint-disable-next-line @typescript-eslint/no-empty-object-type -- scaffold placeholder\nexport interface ${modUpper}Data {}\n`,
+        content: `\nexport interface ${modUpper}Data {hello: unknown}\n`,
       },
       {
         path: `src/modules/${module}/utils/${module}.utils.ts`,

@@ -1,5 +1,7 @@
+import AccountPage from "@/modules/account/pages/AccountPage";
+
 const Index = () => {
-  return <div>Account Index</div>;
+  return <AccountPage />;
 };
 
 export default Index;

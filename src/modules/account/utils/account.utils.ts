@@ -1,3 +1,1 @@
-export const accountUtils = {
-  formatData: <T>(data: T): T => data
-};
+export const accountUtils = {};

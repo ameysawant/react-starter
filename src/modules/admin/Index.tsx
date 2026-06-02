@@ -1,5 +1,7 @@
+import AdminPage from "@/modules/admin/pages/AdminPage";
+
 const Index = () => {
-  return <div>Admin Index</div>;
+  return <AdminPage />;
 };
 
 export default Index;

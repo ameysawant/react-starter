@@ -1,3 +1,1 @@
-export const accountService = {
-  // Add service methods here
-};
+export const accountService = {};

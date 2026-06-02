@@ -1,3 +1,2 @@
-export interface AdminData {
-  id: string;
-}
+
+export interface AdminData {hello: unknown}
