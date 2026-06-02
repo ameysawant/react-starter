@@ -177,6 +177,7 @@ const run = async () => {
   // Create Boilerplate Files for each module
   modules.forEach((module) => {
     const modUpper = capitalize(module);
+    const mUpper = module.toUpperCase();
 
     const files = [
       {
@@ -185,7 +186,7 @@ const run = async () => {
       },
       {
         path: `src/router/routes/${modUpper}Routes.tsx`,
-        content: `import ${modUpper}Layout from "@/shared/layouts/${modUpper}Layout";\nimport ${modUpper}Index from "@/modules/${module}/Index";\n\nexport const ${module}Routes = [\n  {\n    path: "/${module}",\n    element: <${modUpper}Layout />,\n    children: [\n      {\n        index: true,\n        element: <${modUpper}Index />,\n      },\n    ],\n  },\n];\n`,
+        content: `import ${modUpper}Layout from "@/shared/layouts/${modUpper}Layout";\nimport ${modUpper}Index from "@/modules/${module}/Index";\nimport { ${mUpper}_ROUTES } from "@/shared/constants/routes";\n\nexport const ${module}Routes = [\n  {\n    path: ${mUpper}_ROUTES.base,\n    element: <${modUpper}Layout />,\n    children: [\n      {\n        index: true,\n        element: <${modUpper}Index />,\n      },\n    ],\n  },\n];\n`,
       },
       {
         path: `src/shared/layouts/${modUpper}Layout.tsx`,
