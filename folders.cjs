@@ -190,7 +190,7 @@ const run = async () => {
       },
       {
         path: `src/shared/layouts/${modUpper}Layout.tsx`,
-        content: `import { Outlet } from "react-router-dom";\nimport ${modUpper}Header from "@/modules/${module}/layout/${modUpper}Header";\nimport ${modUpper}Footer from "@/modules/${module}/layout/${modUpper}Footer";\n\nconst ${modUpper}Layout = () => {\n  return (\n    <div>\n      <${modUpper}Header />\n      <main>\n        <Outlet />\n      </main>\n      <${modUpper}Footer />\n    </div>\n  );\n};\n\nexport default ${modUpper}Layout;\n`,
+        content: `import { Outlet } from "react-router-dom";\nimport ${modUpper}Header from "@/modules/${module}/layout/${modUpper}Header";\nimport ${modUpper}Footer from "@/modules/${module}/layout/${modUpper}Footer";\n\nconst ${modUpper}Layout = () => {\n  return (\n    <>\n      <${modUpper}Header />\n      <main>\n        <Outlet />\n      </main>\n      <${modUpper}Footer />\n    </>\n  );\n};\n\nexport default ${modUpper}Layout;\n`,
       },
       {
         path: `src/modules/${module}/layout/${modUpper}Header.tsx`,

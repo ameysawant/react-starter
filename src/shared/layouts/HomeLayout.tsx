@@ -4,13 +4,13 @@ import HomeFooter from "@/modules/home/layout/HomeFooter";
 
 const HomeLayout = () => {
   return (
-    <div>
+    <>
       <HomeHeader />
       <main>
         <Outlet />
       </main>
       <HomeFooter />
-    </div>
+    </>
   );
 };
 

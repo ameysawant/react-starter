@@ -4,13 +4,13 @@ import AccountFooter from "@/modules/account/layout/AccountFooter";
 
 const AccountLayout = () => {
   return (
-    <div>
+    <>
       <AccountHeader />
       <main>
         <Outlet />
       </main>
       <AccountFooter />
-    </div>
+    </>
   );
 };
 

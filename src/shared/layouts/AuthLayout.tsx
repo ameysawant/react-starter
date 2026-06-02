@@ -4,13 +4,13 @@ import AuthFooter from "@/modules/auth/layout/AuthFooter";
 
 const AuthLayout = () => {
   return (
-    <div>
+    <>
       <AuthHeader />
       <main>
         <Outlet />
       </main>
       <AuthFooter />
-    </div>
+    </>
   );
 };
 
