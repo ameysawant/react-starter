@@ -1,6 +1,6 @@
 import React from "react";
-import { cn } from "@/lib/utils";
-import { GRID_CONFIG } from "@/components/shared/flexbox-grid/grid-config";
+import { cn } from "@/shared/utils/utils";
+import { GRID_CONFIG } from "@/shared/components/flexbox-grid/grid-config";
 
 interface ContainerProps {
   children: React.ReactNode;
@@ -14,23 +14,9 @@ interface ContainerProps {
   xxxl?: boolean;
 }
 
-export function Container({
-  children,
-  className = "",
-  fluid,
-  sm,
-  md,
-  lg,
-  xl,
-  xxl,
-  xxxl,
-}: ContainerProps) {
+export function Container({ children, className = "", fluid, sm, md, lg, xl, xxl, xxxl }: ContainerProps) {
   if (fluid) {
-    return (
-      <div className={cn("bootstrap-container-fluid w-full px-4", className)}>
-        {children}
-      </div>
-    );
+    return <div className={cn("bootstrap-container-fluid w-full px-4", className)}>{children}</div>;
   }
 
   const isDefault = !sm && !md && !lg && !xl && !xxl && !xxxl;
@@ -54,8 +40,7 @@ export function Container({
         (isDefault || sm || md || lg) && "lg:max-w-(--lg-w)",
         (isDefault || sm || md || lg || xl) && "xl:max-w-(--xl-w)",
         (isDefault || sm || md || lg || xl || xxl) && "xxl:max-w-(--xxl-w)",
-        (isDefault || sm || md || lg || xl || xxl || xxxl) &&
-          "xxxl:max-w-(--xxxl-w)",
+        (isDefault || sm || md || lg || xl || xxl || xxxl) && "xxxl:max-w-(--xxxl-w)",
         className,
       )}
     >

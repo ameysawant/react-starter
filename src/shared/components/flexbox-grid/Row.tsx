@@ -1,6 +1,6 @@
 import React from "react";
-import { cn } from "@/lib/utils";
-import { GRID_CONFIG } from "@/components/shared/flexbox-grid/grid-config";
+import { cn } from "@/shared/utils/utils";
+import { GRID_CONFIG } from "@/shared/components/flexbox-grid/grid-config";
 
 interface RowProps {
   children: React.ReactNode;
@@ -8,11 +8,7 @@ interface RowProps {
   gutter?: number;
 }
 
-export function Row({
-  children,
-  className = "",
-  gutter = GRID_CONFIG.defaultGutter,
-}: RowProps) {
+export function Row({ children, className = "", gutter = GRID_CONFIG.defaultGutter }: RowProps) {
   const gutterVal = `${gutter * 0.25}rem`;
   const style = {
     "--gutter-x": gutterVal,
@@ -21,10 +17,7 @@ export function Row({
   } as React.CSSProperties;
 
   return (
-    <div
-      style={style}
-      className={cn("bootstrap-row flex flex-wrap", className)}
-    >
+    <div style={style} className={cn("bootstrap-row flex flex-wrap", className)}>
       {children}
     </div>
   );

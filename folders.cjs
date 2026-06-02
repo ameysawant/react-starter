@@ -9,7 +9,7 @@ const rl = readline.createInterface({
 
 const askQuestion = (query) => new Promise((resolve) => rl.question(query, resolve));
 
-const modules = ["shop", "auth", "hotels", "flights", "experiences", "admin", "account"];
+const modules = ["home", "auth", "admin", "account"];
 
 const directories = [
   "src/config",

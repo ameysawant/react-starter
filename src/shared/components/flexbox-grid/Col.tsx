@@ -1,6 +1,6 @@
 import React from "react";
-import { cn } from "@/lib/utils";
-import { GRID_CONFIG } from "@/components/shared/flexbox-grid/grid-config";
+import { cn } from "@/shared/utils/utils";
+import { GRID_CONFIG } from "@/shared/components/flexbox-grid/grid-config";
 
 type ColSize = number | "auto" | boolean;
 
@@ -23,17 +23,7 @@ const getWidth = (size?: ColSize) => {
   return undefined;
 };
 
-export function Col({
-  col,
-  sm,
-  md,
-  lg,
-  xl,
-  xxl,
-  xxxl,
-  children,
-  className = "",
-}: ColProps) {
+export function Col({ col, sm, md, lg, xl, xxl, xxxl, children, className = "" }: ColProps) {
   const dynamicStyles: Record<string, string | undefined> = {
     "--col-w": getWidth(col),
     "--sm-w": getWidth(sm),
