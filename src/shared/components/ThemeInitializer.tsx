@@ -6,7 +6,7 @@ const ThemeInitializer = () => {
   const theme = useThemeStore((state) => state.theme);
 
   useEffect(() => {
-    document.documentElement.classList.add(theme === "dark" ? "dark" : "light");
+    document.documentElement.classList.toggle("dark", theme === "dark");
   }, [theme]);
 
   return null;
