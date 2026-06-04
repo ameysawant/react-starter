@@ -3,6 +3,7 @@ import LibraryIndex from "@/modules/library/Index";
 import { LIBRARY_ROUTES } from "@/shared/constants/routes";
 import ScrollableModal from "@/modules/library/components/ScrollableModal";
 import CenteredModal from "@/modules/library/components/CenteredModal";
+import NestedDropdown from "@/modules/library/components/NestedDropdown";
 
 export const libraryRoutes = [
   {
@@ -20,6 +21,10 @@ export const libraryRoutes = [
       {
         path: LIBRARY_ROUTES.scrollableModal,
         element: <ScrollableModal />,
+      },
+      {
+        path: LIBRARY_ROUTES.dropdown,
+        element: <NestedDropdown />,
       },
     ],
   },

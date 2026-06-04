@@ -23,4 +23,5 @@ export const LIBRARY_ROUTES = {
   library: "/library",
   centeredModal: "/library/centered-modal",
   scrollableModal: "/library/scrollable-modal",
+  dropdown: "/library/dropdown",
 };

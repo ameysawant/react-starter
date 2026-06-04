@@ -14,6 +14,10 @@ const LibraryHeader = () => {
       label: "Scrollable Modal",
       to: LIBRARY_ROUTES.scrollableModal,
     },
+    {
+      label: "Dropdown",
+      to: LIBRARY_ROUTES.dropdown,
+    },
   ];
   return (
     <>

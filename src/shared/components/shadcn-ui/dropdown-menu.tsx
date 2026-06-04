@@ -203,8 +203,15 @@ function DropdownMenuSubTrigger({
 
 function DropdownMenuSubContent({
   className,
+  side = "right",
+  align = "start",
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.SubContent>) {
+}: React.ComponentProps<typeof DropdownMenuPrimitive.SubContent> & {
+  side?: "top" | "right" | "bottom" | "left";
+  align?: "start" | "center" | "end";
+}) {
+  const positioning = { side, align };
+
   return (
     <DropdownMenuPrimitive.SubContent
       data-slot="dropdown-menu-sub-content"
@@ -213,6 +220,7 @@ function DropdownMenuSubContent({
         className,
       )}
       {...props}
+      {...(positioning as React.ComponentProps<typeof DropdownMenuPrimitive.SubContent>)}
     />
   );
 }
