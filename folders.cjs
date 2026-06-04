@@ -1,15 +1,7 @@
 const fs = require("fs");
 const path = require("path");
-const readline = require("readline");
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
-
-const askQuestion = (query) => new Promise((resolve) => rl.question(query, resolve));
-
-const modules = ["home", "auth", "admin", "account"];
+const modules = ["home", "auth", "admin", "account", "library"];
 
 const directories = [
   "src/config",
@@ -48,6 +40,7 @@ const createDirectories = () => {
     const fullPath = path.join(process.cwd(), dir);
     if (!fs.existsSync(fullPath)) {
       fs.mkdirSync(fullPath, { recursive: true });
+      console.log(`📁 Created directory: ${dir}`);
     }
   });
 };
@@ -121,7 +114,6 @@ const globalFiles = [
   },
   {
     path: "src/App.tsx",
-    overwrite: true,
     content:
       'import { RouterProvider } from "react-router";\nimport { router } from "@/router/routes/Router";\n\nconst App = () => {\n  return <RouterProvider router={router} />;\n};\n\nexport default App;\n',
   },
@@ -131,46 +123,26 @@ const globalFiles = [
   },
   {
     path: "src/shared/styles/global.css",
-    overwrite: false,
     content:
       "@import \"tailwindcss\";\n\n:root {\n  --background: #ffffff;\n  --foreground: #0f172a;\n}\n\nbody {\n  background-color: var(--background);\n  color: var(--foreground);\n  font-family: 'Inter', sans-serif;\n}\n",
   },
   {
     path: "src/main.tsx",
-    overwrite: true,
     content: `import { StrictMode } from "react";\nimport { createRoot } from "react-dom/client";\nimport { QueryClient, QueryClientProvider } from "@tanstack/react-query";\nimport "@/shared/styles/global.css";\nimport App from "@/App.tsx";\n\nconst queryClient = new QueryClient();\n\ncreateRoot(document.getElementById("root")!).render(\n  <StrictMode>\n    <QueryClientProvider client={queryClient}>\n      <App />\n    </QueryClientProvider>\n  </StrictMode>,\n);\n`,
   },
 ];
 
 // Execution
-const run = async () => {
+const run = () => {
   console.log("🚀 Initializing project structure...");
 
   createDirectories();
 
-  // Create Global Files
-  let overwriteAll = false;
-  const filesToOverwrite = globalFiles.filter((f) => fs.existsSync(path.join(process.cwd(), f.path)) && f.overwrite);
-
-  if (filesToOverwrite.length > 0) {
-    const answer = await askQuestion(
-      `⚠️  ${filesToOverwrite.length} file(s) already exist and are marked to be overwritten. Proceed with all? (y/N): `,
-    );
-    if (answer.toLowerCase() !== "y") {
-      console.log(`❌  Operation aborted by user.`);
-      rl.close();
-      return;
-    }
-    overwriteAll = true;
-  }
-
   for (const file of globalFiles) {
     const fullPath = path.join(process.cwd(), file.path);
-    const exists = fs.existsSync(fullPath);
-
-    if (!exists || (file.overwrite && overwriteAll)) {
+    if (!fs.existsSync(fullPath)) {
       fs.writeFileSync(fullPath, file.content);
-      console.log(`📝 ${exists ? "Updated" : "Created"} global file: ${file.path}`);
+      console.log(`📝 Created global file: ${file.path}`);
     }
   }
 
@@ -248,7 +220,6 @@ const run = async () => {
   });
 
   console.log("\n✨ Folder structure and all boilerplate files are ready!");
-  rl.close();
   process.exit(0);
 };
 
