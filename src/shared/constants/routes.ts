@@ -17,3 +17,10 @@ export const ACCOUNT_ROUTES = {
   base: "/account",
   account: "/account",
 };
+
+export const LIBRARY_ROUTES = {
+  base: "/library",
+  library: "/library",
+  centeredModal: "/library/centered-modal",
+  scrollableModal: "/library/scrollable-modal",
+};

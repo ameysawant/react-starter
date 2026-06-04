@@ -3,6 +3,7 @@ import { homeRoutes } from "@/router/routes/HomeRoutes";
 import { authRoutes } from "@/router/routes/AuthRoutes";
 import { adminRoutes } from "@/router/routes/AdminRoutes";
 import { accountRoutes } from "@/router/routes/AccountRoutes";
+import { libraryRoutes } from "@/router/routes/LibraryRoutes";
 import PageNotFound from "@/shared/components/feedback/PageNotFound";
 
 export const router = createBrowserRouter([
@@ -10,5 +11,6 @@ export const router = createBrowserRouter([
   ...authRoutes,
   ...adminRoutes,
   ...accountRoutes,
-  { path: "*", element: <PageNotFound /> }
+  ...libraryRoutes,
+  { path: "*", element: <PageNotFound /> },
 ]);

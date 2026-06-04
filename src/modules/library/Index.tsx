@@ -1,7 +1,11 @@
 import LibraryPage from "@/modules/library/pages/LibraryPage";
 
 const Index = () => {
-  return <LibraryPage />;
+  return (
+    <>
+      <LibraryPage />
+    </>
+  );
 };
 
 export default Index;
